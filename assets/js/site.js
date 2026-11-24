@@ -153,12 +153,150 @@
              ['Bottom', 'Hip crease at or just below the knee, heels flat, chest up.'],
              ['Drive', 'Push the floor away. Hips and chest rise at the same rate.'],
              ['Top', 'Stand tall, re-brace and reset your breath.']]
+    },
+    'push-up': {
+      name: 'Push-Up', prime: 'Pectoralis major', syn: 'Triceps, anterior deltoid', stab: 'Rectus abdominis, obliques, glutes',
+      cues: [['Lower', 'Lower as one piece with the elbows about 45° from the ribs.'],
+             ['Bottom', 'Chest an inch from the floor, hips level with the shoulders.'],
+             ['Press', 'Push the floor away and keep the body rigid.'],
+             ['Top', 'Finish by spreading the shoulder blades apart.']]
+    },
+    'incline-dumbbell-press': {
+      name: 'Incline Dumbbell Press', prime: 'Pectoralis major, anterior deltoid', syn: 'Triceps', stab: 'Latissimus dorsi, forearms',
+      cues: [['Lower', 'Lower the dumbbells to the upper chest with the elbows about 45° from the torso.'],
+             ['Stretch', 'Pause with the dumbbells level with the collarbones.'],
+             ['Press', 'Press up and slightly in until the dumbbells meet over the shoulders.'],
+             ['Lockout', 'Stop just short of touching to keep the chest loaded.']]
+    },
+    'dumbbell-fly': {
+      name: 'Dumbbell Fly', prime: 'Pectoralis major', syn: 'Anterior deltoid', stab: 'Biceps, forearms',
+      cues: [['Open', 'Lower the dumbbells out in a wide arc, as if hugging a large tree.'],
+             ['Stretch', 'Stop when the upper arms reach the line of the bench and the chest feels stretched.'],
+             ['Close', 'Squeeze the chest to bring the dumbbells back along the same arc.'],
+             ['Top', 'Stop with the dumbbells a hand’s width apart.']]
+    },
+    'bent-over-row': {
+      name: 'Bent-Over Row', prime: 'Latissimus dorsi, trapezius', syn: 'Posterior deltoid, biceps', stab: 'Spinal erectors, hamstrings, glutes, forearms',
+      cues: [['Pull', 'Pull the bar to the lower ribs, leading with the elbows.'],
+             ['Squeeze', 'Pinch the shoulder blades together for a beat.'],
+             ['Lower', 'Lower until the arms are straight and the shoulder blades spread.'],
+             ['Reset', 'Check the torso angle has not crept upward.']]
+    },
+    'lat-pulldown': {
+      name: 'Lat Pulldown', prime: 'Latissimus dorsi', syn: 'Biceps, posterior deltoid, trapezius', stab: 'Rectus abdominis, forearms',
+      cues: [['Pull', 'Drive the elbows down and back. Bring the bar to the top of the chest.'],
+             ['Squeeze', 'Hold with the shoulder blades pulled down and together.'],
+             ['Return', 'Let the bar rise over three seconds until the arms are straight.'],
+             ['Reach', 'Let the lats stretch at the top without lifting off the seat.']]
+    },
+    'deadlift': {
+      name: 'Deadlift', prime: 'Glutes, hamstrings, spinal erectors', syn: 'Quadriceps, trapezius, adductors', stab: 'Latissimus dorsi, forearms, rectus abdominis',
+      cues: [['Pull', 'Push the floor away. The bar stays in contact with the legs.'],
+             ['Lockout', 'Stand tall with the hips through and the glutes squeezed.'],
+             ['Lower', 'Push the hips back first, then bend the knees once the bar passes them.'],
+             ['Reset', 'Let the plates settle and re-brace before the next rep.']]
+    },
+    'lateral-raise': {
+      name: 'Lateral Raise', prime: 'Lateral deltoid', syn: 'Anterior deltoid, trapezius', stab: 'Rectus abdominis, spinal erectors',
+      cues: [['Raise', 'Sweep the arms out and slightly forward, leading with the elbows.'],
+             ['Peak', 'Stop at shoulder height with the hands no higher than the elbows.'],
+             ['Lower', 'Take two seconds down and keep tension at the bottom.'],
+             ['Reset', 'Stop just short of the thighs.']]
+    },
+    'dumbbell-shoulder-press': {
+      name: 'Dumbbell Shoulder Press', prime: 'Anterior deltoid, lateral deltoid', syn: 'Triceps, trapezius', stab: 'Rectus abdominis, obliques, spinal erectors',
+      cues: [['Press', 'Press up and slightly in until the arms are straight.'],
+             ['Lockout', 'Dumbbells over the shoulders, biceps beside the ears.'],
+             ['Lower', 'Lower to ear level over three seconds.'],
+             ['Reset', 'Keep the forearms vertical before the next rep.']]
+    },
+    'face-pull': {
+      name: 'Face Pull', prime: 'Posterior deltoid', syn: 'Trapezius, lateral deltoid', stab: 'Rectus abdominis, spinal erectors, forearms',
+      cues: [['Pull', 'Pull the rope toward the face, splitting the ends apart.'],
+             ['Peak', 'Finish with the hands beside the ears and the elbows high, like a double-biceps pose.'],
+             ['Return', 'Let the arms extend under control.'],
+             ['Reset', 'Keep the shoulders down before the next rep.']]
+    },
+    'barbell-curl': {
+      name: 'Barbell Curl', prime: 'Biceps', syn: 'Forearms', stab: 'Anterior deltoid, rectus abdominis, spinal erectors',
+      cues: [['Curl', 'Curl the bar up in an arc with the elbows pinned.'],
+             ['Squeeze', 'Squeeze at the top without letting the elbows come forward.'],
+             ['Lower', 'Lower for three seconds to full extension.'],
+             ['Reset', 'Pause at the bottom so the next rep starts without momentum.']]
+    },
+    'triceps-pushdown': {
+      name: 'Triceps Pushdown', prime: 'Triceps', syn: 'None', stab: 'Latissimus dorsi, rectus abdominis, forearms',
+      cues: [['Push', 'Press the bar down until the arms are fully straight.'],
+             ['Lockout', 'Squeeze the triceps hard at the bottom.'],
+             ['Return', 'Let the bar rise until the forearms pass parallel to the floor.'],
+             ['Reset', 'Elbows stay put. Only the forearms move.']]
+    },
+    'skull-crusher': {
+      name: 'Skull Crusher', prime: 'Triceps', syn: 'None', stab: 'Latissimus dorsi, forearms, pectoralis major',
+      cues: [['Lower', 'Bend only at the elbows and lower the bar toward the top of the head.'],
+             ['Stretch', 'Pause just above the forehead with the elbows pointing at the ceiling.'],
+             ['Extend', 'Straighten the arms back to the start.'],
+             ['Top', 'Keep the arms angled back so the triceps stay loaded.']]
+    },
+    'hanging-leg-raise': {
+      name: 'Hanging Leg Raise', prime: 'Rectus abdominis', syn: 'Obliques, quadriceps', stab: 'Forearms, latissimus dorsi',
+      cues: [['Raise', 'Lift the legs by tucking the pelvis under. Do not swing.'],
+             ['Peak', 'Legs at or above parallel with the lower back slightly rounded.'],
+             ['Lower', 'Lower slowly and resist the swing.'],
+             ['Hang', 'Come to a dead stop.']]
+    },
+    'dead-bug': {
+      name: 'Dead Bug', prime: 'Rectus abdominis', syn: 'Obliques', stab: 'Quadriceps, anterior deltoid',
+      cues: [['Extend', 'Lower one arm overhead and straighten the opposite leg toward the floor.'],
+             ['Hover', 'Stop just above the floor. The lower back has not moved.'],
+             ['Return', 'Bring both back to the start with control.'],
+             ['Reset', 'Re-press the lower back down and switch sides.']]
+    },
+    'ab-wheel-rollout': {
+      name: 'Ab Wheel Rollout', prime: 'Rectus abdominis', syn: 'Latissimus dorsi, obliques', stab: 'Triceps, anterior deltoid, spinal erectors',
+      cues: [['Roll out', 'Let the hips and shoulders travel forward together. Keep the tuck.'],
+             ['Stretch', 'Go only as far as you can without the lower back sagging.'],
+             ['Pull back', 'Pull the wheel back with the abs and lats, not by piking the hips.'],
+             ['Reset', 'Return to the start and re-tuck.']]
+    },
+    'romanian-deadlift': {
+      name: 'Romanian Deadlift', prime: 'Hamstrings, glutes', syn: 'Spinal erectors, adductors', stab: 'Latissimus dorsi, trapezius, forearms',
+      cues: [['Lower', 'Push the hips straight back. The bar slides down the thighs.'],
+             ['Stretch', 'Stop when the hamstrings are fully stretched, usually just below the knee. Spine stays neutral.'],
+             ['Drive', 'Drive the hips forward and squeeze the glutes. The bar retraces the same path.'],
+             ['Top', 'Finish tall without leaning back.']]
+    },
+    'hip-thrust': {
+      name: 'Barbell Hip Thrust', prime: 'Glutes', syn: 'Hamstrings, adductors', stab: 'Rectus abdominis, spinal erectors, quadriceps',
+      cues: [['Drive', 'Drive through the heels and push the hips toward the ceiling.'],
+             ['Squeeze', 'Hold at the top with the ribs down and the glutes squeezed hard.'],
+             ['Lower', 'Lower the hips under control, pivoting on the bench.'],
+             ['Reset', 'Touch down lightly and go again.']]
+    },
+    'split-squat': {
+      name: 'Dumbbell Split Squat', prime: 'Quadriceps, glutes', syn: 'Adductors, hamstrings', stab: 'Calves, rectus abdominis, obliques',
+      cues: [['Lower', 'Drop the back knee straight down toward the floor.'],
+             ['Bottom', 'Back knee just above the floor, front shin close to vertical.'],
+             ['Drive', 'Push through the front heel to stand back up.'],
+             ['Top', 'Stop short of locking the front knee. Finish all reps, then switch legs.']]
     }
   };
 
-  let sex = 'm';
-  try { if (window.localStorage.getItem('myolith-sex') === 'f') sex = 'f'; } catch (error) { /* private mode */ }
+  // Each body part offers a few exercises. The first one shows when the body part is tapped.
+  const PARTS = {
+    chest: { label: 'Chest', ex: ['bench-press', 'push-up', 'incline-dumbbell-press', 'dumbbell-fly'] },
+    back: { label: 'Back', ex: ['pull-up', 'bent-over-row', 'lat-pulldown', 'deadlift'] },
+    shoulders: { label: 'Shoulders', ex: ['overhead-press', 'lateral-raise', 'dumbbell-shoulder-press', 'face-pull'] },
+    arms: { label: 'Arms', ex: ['hammer-curl', 'barbell-curl', 'triceps-pushdown', 'skull-crusher'] },
+    core: { label: 'Core', ex: ['plank', 'hanging-leg-raise', 'dead-bug', 'ab-wheel-rollout'] },
+    legs: { label: 'Legs', ex: ['back-squat', 'romanian-deadlift', 'hip-thrust', 'split-squat'] }
+  };
+
+  // The female figure is the default. A visitor who picked the male one keeps it.
+  let sex = 'f';
+  try { if (window.localStorage.getItem('myolith-sex') === 'm') sex = 'm'; } catch (error) { /* private mode */ }
   let currentID = 'bench-press';
+  let currentPart = 'chest';
 
   const explorerHost = $('#explorer-stage');
   const avatarHost = $('#avatar-stage');
@@ -173,6 +311,7 @@
   const cueEl = $('#ex-cue');
   const explorerPoster = $('#explorer-poster');
   const avatarPoster = $('#avatar-poster');
+  const pickEl = $('#ex-pick');
 
   function showPhase(index) {
     const exercise = EXERCISES[currentID];
@@ -189,14 +328,15 @@
     const exercise = EXERCISES[id];
     if (!exercise) return;
     currentID = id;
-    press($$('.chip[data-ex]'), (b) => b.dataset.ex === id);
+    press($$('[data-ex]'), (b) => b.dataset.ex === id);
     press($$('[data-view]'), (b) => b.dataset.view === 'auto');
     if (nameEl) nameEl.textContent = exercise.name;
     if (primeEl) primeEl.textContent = exercise.prime;
     if (synEl) synEl.textContent = exercise.syn;
     if (stabEl) stabEl.textContent = exercise.stab;
     showPhase(0);
-    if (explorerPoster) {
+    // Only the starter exercises have a still picture. The others keep the last one until the figure is live.
+    if (explorerPoster && exercise.alt) {
       explorerPoster.src = 'assets/img/ex-' + id + '.png';
       explorerPoster.alt = exercise.alt;
     }
@@ -208,8 +348,31 @@
     }
   }
 
+  function selectPart(part) {
+    const group = PARTS[part];
+    if (!group) return;
+    currentPart = part;
+    press($$('.chip[data-part]'), (b) => b.dataset.part === part);
+    if (pickEl) {
+      pickEl.textContent = '';
+      pickEl.setAttribute('aria-label', group.label + ' exercises');
+      group.ex.forEach((id) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'pick';
+        button.dataset.ex = id;
+        button.setAttribute('aria-pressed', 'false');
+        button.textContent = EXERCISES[id].name;
+        button.addEventListener('click', () => selectExercise(id));
+        pickEl.appendChild(button);
+      });
+      pickEl.hidden = false;
+    }
+    selectExercise(group.ex[0]);
+  }
+
   function selectSex(value) {
-    sex = value === 'f' ? 'f' : 'm';
+    sex = value === 'm' ? 'm' : 'f';
     try { window.localStorage.setItem('myolith-sex', sex); } catch (error) { /* private mode */ }
     press($$('[data-sex]'), (b) => b.dataset.sex === sex);
     if (avatarPoster) {
@@ -220,7 +383,7 @@
     if (avatar) avatar.send('sex', sex);
   }
 
-  $$('.chip[data-ex]').forEach((chip) => chip.addEventListener('click', () => selectExercise(chip.dataset.ex)));
+  $$('.chip[data-part]').forEach((chip) => chip.addEventListener('click', () => selectPart(chip.dataset.part)));
   $$('[data-sex]').forEach((button) => button.addEventListener('click', () => selectSex(button.dataset.sex)));
   $$('[data-view]').forEach((button) => button.addEventListener('click', () => {
     press($$('[data-view]'), (b) => b === button);
@@ -236,16 +399,26 @@
       explorer.send('play', !reduceMotion);
     };
   }
+  // Sample training for the avatar: how hard each muscle worked this week, from 0 to 1.
+  // Above 0.66 glows red, above 0.33 amber, anything else blue.
+  const SAMPLE_WEEK = {
+    chest: 0.9, delt_front: 0.75, triceps: 0.6,
+    lats: 0.85, traps: 0.45, biceps: 0.5, delt_rear: 0.3,
+    quads: 1, glutes: 0.8, hamstrings: 0.55, calves: 0.2,
+    abs: 0.4, obliques: 0.25, forearms: 0.15
+  };
+
   if (avatar) {
     avatar.onReady = () => {
       avatar.send('sex', sex);
-      avatar.send('anatomy', '', true);
+      avatar.send('heat', SAMPLE_WEEK, true);
       avatar.send('play', true);
       avatar.send('spin', !reduceMotion);
     };
   }
   press($$('[data-sex]'), (b) => b.dataset.sex === sex);
-  if (sex === 'f' && avatarPoster) selectSex('f');
+  if (sex === 'm' && avatarPoster) selectSex('m');
+  selectPart(currentPart);
 
   // Start each figure only when it is close to the screen, so the page itself loads fast.
   function mountWhenNear(figure) {

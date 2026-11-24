@@ -38,7 +38,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,800&amp;family=Inter:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,800&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
 <link rel="preload" as="image" href="assets/img/ex-bench-press.png">
 <script>document.documentElement.classList.remove('no-js');</script>
@@ -160,21 +160,22 @@
             <button type="button" data-view="180" aria-pressed="false">Back</button>
           </div>
           <div class="seg" role="group" aria-label="Figure">
-            <button type="button" data-sex="m" aria-pressed="true">Male</button>
-            <button type="button" data-sex="f" aria-pressed="false">Female</button>
+            <button type="button" data-sex="f" aria-pressed="true">Female</button>
+            <button type="button" data-sex="m" aria-pressed="false">Male</button>
           </div>
         </div>
       </div>
       <div class="explorer__info">
         <p class="eyebrow eyebrow--quiet">Go on. Tap a body part.</p>
         <div class="chips" role="group" aria-label="Body part">
-          <button type="button" class="chip" data-ex="bench-press" aria-pressed="true">Chest</button>
-          <button type="button" class="chip" data-ex="pull-up" aria-pressed="false">Back</button>
-          <button type="button" class="chip" data-ex="overhead-press" aria-pressed="false">Shoulders</button>
-          <button type="button" class="chip" data-ex="hammer-curl" aria-pressed="false">Arms</button>
-          <button type="button" class="chip" data-ex="plank" aria-pressed="false">Core</button>
-          <button type="button" class="chip" data-ex="back-squat" aria-pressed="false">Legs</button>
+          <button type="button" class="chip" data-part="chest" aria-pressed="true">Chest</button>
+          <button type="button" class="chip" data-part="back" aria-pressed="false">Back</button>
+          <button type="button" class="chip" data-part="shoulders" aria-pressed="false">Shoulders</button>
+          <button type="button" class="chip" data-part="arms" aria-pressed="false">Arms</button>
+          <button type="button" class="chip" data-part="core" aria-pressed="false">Core</button>
+          <button type="button" class="chip" data-part="legs" aria-pressed="false">Legs</button>
         </div>
+        <div class="ex-pick" id="ex-pick" role="group" aria-label="Chest exercises" hidden></div>
         <h2 class="display" id="explore-title" aria-live="polite">Bench Press</h2>
         <dl class="tiers">
           <div style="--dot: var(--prime)"><dt>Prime movers</dt><dd id="ex-prime">Pectoralis major</dd></div>
@@ -209,13 +210,19 @@
         <p class="eyebrow eyebrow--quiet">Your avatar</p>
         <h3>A figure that looks like you</h3>
         <div class="seg" role="group" aria-label="Avatar" style="align-self: flex-start; margin-top: 16px">
-          <button type="button" data-sex="m" aria-pressed="true">Male</button>
-          <button type="button" data-sex="f" aria-pressed="false">Female</button>
+          <button type="button" data-sex="f" aria-pressed="true">Female</button>
+          <button type="button" data-sex="m" aria-pressed="false">Male</button>
         </div>
         <div class="stage stage--avatar" id="avatar-stage" data-src="assets/figure.html#nolabels" data-title="Interactive 3D avatar. Drag to turn it." style="margin-top: 12px">
-          <img class="stage__poster" id="avatar-poster" src="assets/img/avatar-m.png" alt="The male Myolith 3D figure" width="193" height="391" loading="lazy" decoding="async">
+          <img class="stage__poster" id="avatar-poster" src="assets/img/avatar-f.png" alt="The female Myolith 3D figure" width="193" height="391" loading="lazy" decoding="async">
           <p class="stage__hint" aria-hidden="true">Drag to turn</p>
         </div>
+        <p class="heat-note">A sample week: the harder a muscle worked, the brighter it glows.</p>
+        <ul class="heat-key" aria-label="Glow key">
+          <li style="--dot: var(--prime)">Worked hard</li>
+          <li style="--dot: var(--syn)">Worked</li>
+          <li style="--dot: var(--stab)">Light</li>
+        </ul>
       </article>
       <article class="tile rise">
         <p class="eyebrow eyebrow--quiet">Your week</p>
@@ -276,7 +283,7 @@
     <div class="points">
       <article class="point rise">
         <div class="point__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/><path d="M3 3l18 18"/></svg></div>
-        <div><h3>No sign-up. No password.</h3><p>Open it and train. No account. No email. Nothing to remember.</p></div>
+        <div><h3>No sign-up. No password. No bullsh*t.</h3><p>No account to make. No "limited-time" offers in your inbox. No surprise charge when your trial ends.</p></div>
       </article>
       <article class="point rise">
         <div class="point__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
@@ -380,7 +387,7 @@
 
 <footer class="site-footer">
   <div class="wrap site-footer__in">
-    <p>© Zitica Trading Inc. Designed by Thumos Forge.</p>
+    <p>© Myolith. Designed by Thumos Forge.</p>
     <nav aria-label="Legal">
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms and Conditions</a>
