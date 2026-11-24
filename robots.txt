@@ -29,4 +29,4 @@ User-agent: Diffbot
 Disallow: /assets/
 Allow: /
 
-Sitemap: https://YOUR-DOMAIN.com/sitemap.xml
+Sitemap: https://myolith.app/sitemap.xml

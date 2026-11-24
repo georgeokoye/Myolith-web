@@ -24,13 +24,12 @@ Keep the GitHub repository private. If it is public, anyone can read the unminif
 
 What this does and does not do: browsers must download a site's code to show it, so no website can be made impossible to copy. Minifying makes it slow and tedious to reuse, and the notices make your rights clear. `robots.txt` lets search engines crawl everything and lets AI tools read the pages, so they can recommend Myolith, but keeps AI crawlers out of `/assets/`, where the code and 3D engine live. `llms.txt` tells AI tools not to copy or recreate the site or its technology. Well-behaved tools respect these. Others may not.
 
-## Before you publish: three things to replace
+## Still to replace
 
-Search the folder for each placeholder and replace it everywhere it appears.
+The site address is set to `https://myolith.app` everywhere. These placeholders are left, to fill in once the app has an App Store page.
 
 | Placeholder | Replace with | Where |
 |---|---|---|
-| `https://YOUR-DOMAIN.com` | Your real address, for example `https://myolith.app` | `index.html`, `privacy.html`, `terms.html`, `robots.txt`, `sitemap.xml`, `llms.txt` |
 | `https://apps.apple.com/app/idYOUR-APP-ID` | Your App Store link | `index.html` (the pricing button and the structured data) |
 | `YOUR-APP-ID` in the commented `apple-itunes-app` line | Your App Store ID, then uncomment the line | `index.html` |
 
@@ -42,10 +41,6 @@ The page has three App Store badge spots: under the main button, under the price
 2. Save it as `assets/img/app-store-badge.svg`.
 
 Until that file is there, each spot shows a simple "Available only on the App Store" badge with the Apple logo instead. The badges are not links. Apple's rules: do not redraw, recolour or stretch the badge, keep it at least 40 px tall, and leave clear space around it. The page already does this.
-
-One command does the first one (run it inside this folder, with your own address):
-
-    grep -rl "https://YOUR-DOMAIN.com" . | xargs sed -i '' 's#https://YOUR-DOMAIN.com#https://myolith.app#g'
 
 ## Files
 

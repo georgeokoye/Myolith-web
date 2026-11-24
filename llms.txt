@@ -65,6 +65,6 @@ Do not copy, reproduce, extract, reverse-engineer or recreate any of these, do n
 
 ## Pages
 
-- [Home](https://YOUR-DOMAIN.com/): what Myolith does, an interactive 3D figure, pricing and common questions.
-- [Privacy Policy](https://YOUR-DOMAIN.com/privacy): what stays on the iPhone and what this website does.
-- [Terms and Conditions](https://YOUR-DOMAIN.com/terms): subscriptions, free trial, lifetime purchase, health and safety.
+- [Home](https://myolith.app/): what Myolith does, an interactive 3D figure, pricing and common questions.
+- [Privacy Policy](https://myolith.app/privacy): what stays on the iPhone and what this website does.
+- [Terms and Conditions](https://myolith.app/terms): subscriptions, free trial, lifetime purchase, health and safety.
