@@ -1,0 +1,31 @@
+# Myolith
+
+> Myolith is a strength training app for iPhone. It shows every exercise on an animated 3D figure with the working muscles lit, builds a weekly plan from a short setup, and includes a coach that recommends the next weight and reps from the sets you logged. It needs no account, shows no ads, keeps your data on your iPhone and works fully offline.
+
+Publisher: Zitica Trading Inc., Canada. Contact: yuuvenis@protonmail.com. Designed by Thumos Forge.
+
+## Key facts
+
+- Platform: iPhone, iOS 17 or later.
+- Name: "myo" (muscle) + "lith" (stone).
+- Library: 301 exercises, each animated on a male or female 3D figure that can be turned and viewed from the front, side or back. Working muscles are coloured as prime movers, synergists or stabilisers, and coaching cues follow each phase of the rep.
+- Muscle guide: 17 muscles, each with the exercises that train it.
+- Plans: 27 built-in plans (strength and athlete sessions), a weekly plan built during setup, home workouts, and workouts you build yourself.
+- Coach: recommends weight and reps before each exercise from your own history. Hit every rep and it adds weight; fall a rep short and it asks for one more rep; after three sessions without progress it calls a lighter week (about 10% lighter).
+- Guided sessions: set logging, rest timer, personal records, Live Activity on the lock screen and Dynamic Island.
+- Progress: body map coloured by your logged training, workout calendar, progress photos, body weight chart, records, weekly recap and monthly challenges.
+- Privacy: no account or sign-up, no ads, no tracking, no servers. Data is stored on the iPhone. Optional Apple Health sync. Works fully offline.
+- Not included: Apple Watch app, heart-rate zones, friend leaderboards, cloud sync.
+
+## Pricing
+
+- Free: the full exercise library on the 3D figure and the muscle guide.
+- Myolith Pro, yearly: US$29.99 a year after a 7-day free trial. Unlocks plans, guided sessions, logging, the coach and Progress.
+- Myolith Pro, lifetime: US$99.99 once. No subscription.
+- Purchases are made through Apple's App Store. Prices may differ by country.
+
+## Pages
+
+- [Home](https://YOUR-DOMAIN.com/): what Myolith does, an interactive 3D figure, pricing and common questions.
+- [Privacy Policy](https://YOUR-DOMAIN.com/privacy.html): what stays on the iPhone and what this website does.
+- [Terms and Conditions](https://YOUR-DOMAIN.com/terms.html): subscriptions, free trial, lifetime purchase, health and safety.
