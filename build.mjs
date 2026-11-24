@@ -20,7 +20,7 @@ const PUBLISH = [
 ];
 
 const YEAR = new Date().getFullYear();
-const NOTICE = `© ${YEAR} Zitica Trading Inc., doing business as Thumos HQ. All rights reserved. ` +
+const NOTICE = `© ${YEAR} Myolith. All rights reserved. ` +
   'This code and design are proprietary. Copying, reproducing or reusing them, in whole or in part, ' +
   'without written permission is prohibited.';
 
