@@ -38,3 +38,4 @@ When `stage.html` changes in the app, copy it over `assets/figure.html` and add 
 - The page shows no figures outside pricing, as designed. `llms.txt` does list exercise, muscle and plan counts so AI search can answer factual questions. Remove those lines if you would rather it did not.
 - Fonts load from Google Fonts. The privacy policy says so. To avoid that request, host the Archivo and Inter font files yourself and change the two font links in each page.
 # Myolith-web
+# Myolith-web
