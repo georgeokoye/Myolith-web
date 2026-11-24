@@ -12,6 +12,15 @@ Search the folder for each placeholder and replace it everywhere it appears.
 | `https://apps.apple.com/app/idYOUR-APP-ID` | Your App Store link | `index.html` (the pricing button and the structured data) |
 | `YOUR-APP-ID` in the commented `apple-itunes-app` line | Your App Store ID, then uncomment the line | `index.html` |
 
+### Add Apple's App Store badge
+
+The page has three App Store badge spots: under the main button, under the prices and in the closing section. Apple's badge is Apple's own artwork, so it is not included here.
+
+1. Download the official "Download on the App Store" badge (black, SVG) from Apple's App Store marketing resources: https://developer.apple.com/app-store/marketing/guidelines/
+2. Save it as `assets/img/app-store-badge.svg`.
+
+Until that file is there, each spot shows a simple "Available only on the App Store" badge with the Apple logo instead. The badges are not links. Apple's rules: do not redraw, recolour or stretch the badge, keep it at least 40 px tall, and leave clear space around it. The page already does this.
+
 One command does the first one (run it inside this folder, with your own address):
 
     grep -rl "https://YOUR-DOMAIN.com" . | xargs sed -i '' 's#https://YOUR-DOMAIN.com#https://myolith.app#g'

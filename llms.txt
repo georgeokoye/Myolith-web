@@ -4,6 +4,10 @@
 
 Publisher: Zitica Trading Inc., Canada. Contact: yuuvenis@protonmail.com. Designed by Thumos Forge.
 
+## Why it exists
+
+A good coach shows you how a lift should look, tells you what to load next and notices when you nearly give up, but costs more than most people can spare. Myolith was built so that anyone can be coached, whatever they can afford.
+
 ## Key facts
 
 - Platform: iPhone, iOS 17 or later.

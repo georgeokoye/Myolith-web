@@ -496,7 +496,6 @@
     // Keyboards, switches and screen readers press once instead of holding.
     holdButton.addEventListener('click', (event) => { if (event.detail === 0 && !committed) reveal(true); });
   }
-
   let already = false;
   try { already = window.sessionStorage.getItem('myolith-committed') === '1'; } catch (error) { /* private mode */ }
   if (already) reveal(false);
