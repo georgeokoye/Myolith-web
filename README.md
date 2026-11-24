@@ -39,3 +39,4 @@ When `stage.html` changes in the app, copy it over `assets/figure.html` and add 
 - Fonts load from Google Fonts. The privacy policy says so. To avoid that request, host the Archivo and Inter font files yourself and change the two font links in each page.
 # Myolith-web
 # Myolith-web
+# Myolith-web
