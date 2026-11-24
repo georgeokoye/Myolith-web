@@ -1,4 +1,4 @@
-/* Myolith website behaviour. No libraries, no tracking. */
+/* Myolith website behaviour. No libraries. */
 (() => {
   'use strict';
 

@@ -1,0 +1,13 @@
+{
+  "name": "myolith-web",
+  "private": true,
+  "license": "UNLICENSED",
+  "description": "The Myolith website. Proprietary: see LICENSE.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}
