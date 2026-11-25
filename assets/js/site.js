@@ -146,6 +146,76 @@
              ['Breathe', 'Take short breaths behind the brace without losing position.'],
              ['Reset', 'End the set when the hips start to drop.']]
     },
+    'dumbbell-bench-press': {
+      name: 'Dumbbell Bench Press', prime: 'Pectoralis major', syn: 'Anterior deltoid, triceps', stab: 'Latissimus dorsi, posterior deltoid, forearms',
+      cues: [['Lower', 'Lower the dumbbells to the sides of the chest with the elbows 45–60° from the torso.'],
+             ['Stretch', 'Pause with the dumbbells level with the chest and the pecs stretched.'],
+             ['Press', 'Press up and slightly in. The dumbbells finish over the shoulders.'],
+             ['Lockout', 'Stop just short of the dumbbells touching to keep tension on the chest.']]
+    },
+    'dumbbell-bent-over-row': {
+      name: 'Dumbbell Bent-Over Row', prime: 'Latissimus dorsi, trapezius', syn: 'Posterior deltoid, biceps', stab: 'Spinal erectors, forearms',
+      cues: [['Row', 'Pull with the elbows and drive them back past the ribs.'],
+             ['Squeeze', 'Pinch the shoulder blades together and hold for a beat.'],
+             ['Return', 'Lower under control until the arms are straight.'],
+             ['Reach', 'Let the shoulders reach forward without rounding the lower back.']]
+    },
+    'one-arm-dumbbell-row': {
+      name: 'One-Arm Dumbbell Row', prime: 'Latissimus dorsi', syn: 'Posterior deltoid, biceps, trapezius', stab: 'Obliques, spinal erectors, forearms',
+      cues: [['Row', 'Pull the dumbbell toward the hip, driving the elbow up and back.'],
+             ['Squeeze', 'Hold with the elbow past the torso and the shoulder blade pulled back.'],
+             ['Lower', 'Lower until the arm is straight and the lat stretches.'],
+             ['Reset', 'Keep the shoulders square to the floor. Finish all reps, then switch sides.']]
+    },
+    'dumbbell-deadlift': {
+      name: 'Dumbbell Deadlift', prime: 'Hamstrings, glutes, spinal erectors', syn: 'Quadriceps, trapezius, latissimus dorsi', stab: 'Forearms, rectus abdominis',
+      cues: [['Pull', 'Push the floor away and keep the weight close.'],
+             ['Lockout', 'Stand tall with the hips through and the shoulders back.'],
+             ['Lower', 'Hips back first, then bend the knees once the weight passes them.'],
+             ['Reset', 'Let it settle and brace again.']]
+    },
+    'arnold-press': {
+      name: 'Arnold Press', prime: 'Anterior deltoid, lateral deltoid', syn: 'Triceps, trapezius', stab: 'Rectus abdominis, spinal erectors',
+      cues: [['Press', 'Press straight up until the arms are locked out.'],
+             ['Lockout', 'Finish with the weight over the shoulders and the biceps by the ears.'],
+             ['Lower', 'Lower under control to the start height.'],
+             ['Reset', 'Re-brace before the next rep.']]
+    },
+    'dumbbell-curl': {
+      name: 'Dumbbell Curl', prime: 'Biceps', syn: 'Forearms', stab: 'Anterior deltoid, trapezius',
+      cues: [['Curl', 'Curl up while turning the palms toward the ceiling.'],
+             ['Squeeze', 'Squeeze hard without letting the elbows drift forward.'],
+             ['Lower', 'Lower for three seconds.'],
+             ['Reset', 'Reach full extension before the next rep.']]
+    },
+    'overhead-triceps-extension': {
+      name: 'Overhead Triceps Extension', prime: 'Triceps', syn: 'None', stab: 'Rectus abdominis, anterior deltoid, latissimus dorsi',
+      cues: [['Lower', 'Bend the elbows and lower the dumbbell behind the head.'],
+             ['Stretch', 'Pause in a deep stretch. The upper arms stay still.'],
+             ['Extend', 'Straighten the arms to bring the dumbbell back overhead.'],
+             ['Top', 'Lock out without leaning back.']]
+    },
+    'dumbbell-kickback': {
+      name: 'Dumbbell Kickback', prime: 'Triceps', syn: 'None', stab: 'Latissimus dorsi, rectus abdominis, forearms',
+      cues: [['Extend', 'Straighten the arms until they are fully locked.'],
+             ['Lockout', 'Squeeze the triceps hard at the end.'],
+             ['Return', 'Let the hands come back until the forearms pass parallel.'],
+             ['Reset', 'Keep the elbows still as you start again.']]
+    },
+    'dumbbell-rdl': {
+      name: 'Dumbbell Romanian Deadlift', prime: 'Hamstrings, glutes', syn: 'Spinal erectors', stab: 'Latissimus dorsi, forearms, rectus abdominis',
+      cues: [['Hinge', 'Push the hips straight back and keep the weight close to the legs.'],
+             ['Stretch', 'Stop when the hamstrings are fully stretched and the back is still flat.'],
+             ['Drive', 'Push the hips forward to stand.'],
+             ['Lockout', 'Finish tall with the glutes squeezed, not leaning back.']]
+    },
+    'dumbbell-hip-thrust': {
+      name: 'Dumbbell Hip Thrust', prime: 'Glutes', syn: 'Hamstrings', stab: 'Rectus abdominis, spinal erectors, quadriceps',
+      cues: [['Drive', 'Push through the heels and lift the hips.'],
+             ['Squeeze', 'Hold the top with the glutes squeezed hard.'],
+             ['Lower', 'Lower slowly under control.'],
+             ['Reset', 'Touch down lightly and go again.']]
+    },
     'goblet-squat': {
       name: 'Goblet Squat', prime: 'Quadriceps, glutes', syn: 'Adductors', stab: 'Rectus abdominis, spinal erectors, anterior deltoid',
       alt: 'Goblet squat on the Myolith 3D figure seen from behind, with the glutes and quadriceps lit',
@@ -300,6 +370,22 @@
     legs: { label: 'Legs', ex: ['goblet-squat', 'back-squat', 'romanian-deadlift', 'hip-thrust', 'split-squat'] }
   };
 
+  // The female figure never holds a barbell: each barbell lift is swapped for its dumbbell version.
+  const PARTS_FEMALE = {
+    chest: ['dumbbell-bench-press', 'incline-dumbbell-press', 'dumbbell-fly', 'push-up'],
+    back: ['dumbbell-bent-over-row', 'one-arm-dumbbell-row', 'lat-pulldown', 'dumbbell-deadlift'],
+    shoulders: ['dumbbell-shoulder-press', 'lateral-raise', 'arnold-press', 'face-pull'],
+    arms: ['hammer-curl', 'dumbbell-curl', 'overhead-triceps-extension', 'dumbbell-kickback'],
+    legs: ['goblet-squat', 'dumbbell-rdl', 'dumbbell-hip-thrust', 'split-squat']
+  };
+
+  // The exercises offered for a body part, for the figure that is showing.
+  function exercisesFor(part) {
+    const group = PARTS[part];
+    if (!group) return [];
+    return (sex === 'f' && PARTS_FEMALE[part]) || group.ex;
+  }
+
   // The female figure is the default. A visitor who picked the male one keeps it.
   let sex = 'f';
   try { if (window.localStorage.getItem('myolith-sex') === 'm') sex = 'm'; } catch (error) { /* private mode */ }
@@ -367,7 +453,7 @@
     if (pickEl) {
       pickEl.textContent = '';
       pickEl.setAttribute('aria-label', group.label + ' exercises');
-      group.ex.forEach((id) => {
+      exercisesFor(part).forEach((id) => {
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'pick';
@@ -379,7 +465,7 @@
       });
       pickEl.hidden = false;
     }
-    selectExercise(group.ex[0], openingView);
+    selectExercise(exercisesFor(part)[0], openingView);
   }
 
   function selectSex(value) {
@@ -392,6 +478,11 @@
     }
     if (explorer) explorer.send('sex', sex);
     if (avatar) avatar.send('sex', sex);
+    // The two figures are offered different exercises, so show this figure's list for the body part.
+    if (!exercisesFor(currentPart).includes(currentID)) {
+      openingView = null;
+      selectPart(currentPart);
+    }
   }
 
   $$('.chip[data-part]').forEach((chip) => chip.addEventListener('click', () => { openingView = null; selectPart(chip.dataset.part); }));
