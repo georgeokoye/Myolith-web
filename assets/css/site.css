@@ -240,17 +240,30 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .legal a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--prime); text-underline-offset: 3px; }
 
 /* Things that slide up as they come into view */
-/* Screens from the app: a row of phones that scrolls sideways and snaps to each one. */
-.shots { display: flex; gap: 28px; margin-top: 44px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
-  padding: 8px max(24px, calc((100vw - var(--wrap)) / 2 + 24px)) 28px; scroll-padding-inline: max(24px, calc((100vw - var(--wrap)) / 2 + 24px));
-  scrollbar-width: thin; scrollbar-color: var(--surface-hi) transparent; }
+/* Screens from the app: a carousel. The phone in the middle is in focus, its neighbours sit back.
+   It scrolls by swipe, drag, the arrow buttons, the dots and the arrow keys. */
+.carousel { margin-top: 44px; --shot: clamp(220px, 23vw, 270px); }
+.shots { display: flex; gap: 28px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  padding: 16px calc(50% - var(--shot) / 2) 8px; scrollbar-width: none; cursor: grab; }
+.shots::-webkit-scrollbar { display: none; }
+.shots.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+.shots.is-dragging img { pointer-events: none; }
 .shots:focus-visible { outline-offset: -4px; }
-.shot { flex: none; width: clamp(216px, 22vw, 262px); margin: 0; scroll-snap-align: start; }
+.shot { flex: none; width: var(--shot); margin: 0; scroll-snap-align: center; opacity: .45; transform: scale(.9); transition: opacity .35s ease, transform .35s ease; }
+.shot.is-active { opacity: 1; transform: none; }
 .shot__phone { padding: 7px; border-radius: 40px; background: #050607; box-shadow: 0 0 0 1px #3A3F47, 0 0 0 4px #17191D, 0 0 0 5px #40454E, 0 28px 56px rgba(0, 0, 0, .55); }
-.shot__phone img { width: 100%; aspect-ratio: 393 / 853; border-radius: 33px; background: var(--surface); }
-.shot figcaption { margin-top: 20px; display: grid; gap: 4px; }
+.shot__phone img { width: 100%; aspect-ratio: 393 / 853; border-radius: 33px; background: var(--surface); -webkit-user-drag: none; user-select: none; }
+.shot figcaption { margin-top: 20px; display: grid; gap: 4px; text-align: center; }
 .shot figcaption strong { font-size: 17px; font-weight: 700; color: var(--fg); }
 .shot figcaption span { font-size: 15px; color: var(--fg-2); }
+.carousel__bar { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 24px; }
+.carousel__nav { width: 44px; height: 44px; border-radius: 22px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); display: grid; place-items: center; transition: background .2s ease, opacity .2s ease; }
+.carousel__nav:hover { background: var(--surface-hi); }
+.carousel__nav:disabled { opacity: .35; cursor: default; }
+.carousel__dots { display: flex; align-items: center; gap: 8px; }
+.carousel__dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 4px; background: rgba(255, 255, 255, .22); transition: width .25s ease, background .25s ease; }
+.carousel__dots button.is-active { width: 24px; background: var(--prime); }
+@media (prefers-reduced-motion: reduce) { .shot { transition: none; } }
 
 .rise { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
 .rise.is-in { opacity: 1; transform: none; }

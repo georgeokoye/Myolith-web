@@ -41,6 +41,89 @@
     risers.forEach((el) => el.classList.add('is-in'));
   }
 
+  /* ---------- Screens carousel ----------
+     A row of phones that snaps to the middle one. Swipe and trackpad scrolling work on their own;
+     this adds the arrows, the dots, the arrow keys, dragging with a mouse and the "in focus" look. */
+  (function () {
+    const root = $('#screens-carousel');
+    if (!root) return;
+    const track = $('.shots', root);
+    const shots = $$('.shot', track);
+    const dotsHost = $('.carousel__dots', root);
+    const navs = $$('.carousel__nav', root);
+    if (!track || !shots.length) return;
+    let active = -1;
+
+    const centreOf = (shot) => shot.offsetLeft + shot.offsetWidth / 2;
+    function go(index, smooth) {
+      const i = Math.max(0, Math.min(shots.length - 1, index));
+      track.scrollTo({ left: centreOf(shots[i]) - track.clientWidth / 2, behavior: smooth === false || reduceMotion ? 'auto' : 'smooth' });
+    }
+
+    const dots = shots.map((shot, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.tabIndex = -1;
+      dot.addEventListener('click', () => go(i));
+      if (dotsHost) dotsHost.appendChild(dot);
+      return dot;
+    });
+
+    function update() {
+      const middle = track.scrollLeft + track.clientWidth / 2;
+      let nearest = 0;
+      shots.forEach((shot, i) => {
+        if (Math.abs(centreOf(shot) - middle) < Math.abs(centreOf(shots[nearest]) - middle)) nearest = i;
+      });
+      if (nearest === active) return;
+      active = nearest;
+      shots.forEach((shot, i) => shot.classList.toggle('is-active', i === active));
+      dots.forEach((dot, i) => dot.classList.toggle('is-active', i === active));
+      navs.forEach((nav) => { nav.disabled = Number(nav.dataset.dir) < 0 ? active === 0 : active === shots.length - 1; });
+    }
+
+    let queued = false;
+    track.addEventListener('scroll', () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => { queued = false; update(); });
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    navs.forEach((nav) => nav.addEventListener('click', () => go(active + Number(nav.dataset.dir))));
+    shots.forEach((shot, i) => shot.addEventListener('click', () => { if (!moved && i !== active) go(i); }));
+    track.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') { event.preventDefault(); go(active + 1); }
+      if (event.key === 'ArrowLeft') { event.preventDefault(); go(active - 1); }
+    });
+
+    // Drag with a mouse. Touch already scrolls by itself.
+    let dragFrom = null, startLeft = 0, moved = false;
+    track.addEventListener('pointerdown', (event) => {
+      if (event.pointerType !== 'mouse' || event.button !== 0) return;
+      dragFrom = event.clientX;
+      startLeft = track.scrollLeft;
+      moved = false;
+    });
+    window.addEventListener('pointermove', (event) => {
+      if (dragFrom === null) return;
+      const distance = event.clientX - dragFrom;
+      if (!moved && Math.abs(distance) < 6) return;
+      moved = true;
+      track.classList.add('is-dragging');
+      track.scrollLeft = startLeft - distance;
+    });
+    window.addEventListener('pointerup', () => {
+      if (dragFrom === null) return;
+      dragFrom = null;
+      if (!moved) return;
+      track.classList.remove('is-dragging');
+      go(active);
+      setTimeout(() => { moved = false; }, 0);
+    });
+
+    update();
+  })();
+
   /* ---------- The 3D figure ----------
      Each stage holds the app's own WebGL figure in a frame. The page talks to it with messages.
      Until the figure says it is ready, a still picture shows in its place, so the page works
