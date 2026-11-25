@@ -551,6 +551,32 @@
     selectExercise(exercisesFor(part)[0], openingView);
   }
 
+  // The library card shows this figure's lifts: dumbbells for her, the barbell for him.
+  const LIBRARY_STILLS = {
+    f: [['goblet-squat', 'Goblet Squat'], ['dumbbell-rdl', 'Dumbbell RDL'], ['dumbbell-hip-thrust', 'Hip Thrust'], ['dumbbell-shoulder-press', 'Shoulder Press'], ['dumbbell-bent-over-row', 'Dumbbell Row'], ['dumbbell-bench-press', 'Dumbbell Bench']],
+    m: [['back-squat', 'Back Squat'], ['deadlift', 'Deadlift'], ['bench-press', 'Bench Press'], ['overhead-press', 'Overhead Press'], ['bent-over-row', 'Barbell Row'], ['barbell-curl', 'Barbell Curl']],
+  };
+  const stillsEl = document.getElementById('library-stills');
+  let stillsSex = 'f';
+  function showStills() {
+    if (!stillsEl || stillsSex === sex) return;
+    stillsSex = sex;
+    const apply = () => {
+      $$('.still', stillsEl).forEach((figure, index) => {
+        const item = LIBRARY_STILLS[sex][index];
+        if (!item) return;
+        const img = figure.querySelector('img');
+        img.src = 'assets/img/lib/' + sex + '-' + item[0] + '.webp';
+        img.alt = item[1] + ' on the 3D figure, with the working muscles lit';
+        figure.querySelector('figcaption').textContent = item[1];
+      });
+      stillsEl.classList.remove('is-swapping');
+    };
+    if (reduceMotion) { apply(); return; }
+    stillsEl.classList.add('is-swapping');
+    window.setTimeout(apply, 220);
+  }
+
   function selectSex(value) {
     sex = value === 'm' ? 'm' : 'f';
     try { window.localStorage.setItem('myolith-sex', sex); } catch (error) { /* private mode */ }
@@ -561,6 +587,7 @@
     }
     if (explorer) explorer.send('sex', sex);
     if (avatar) avatar.send('sex', sex);
+    showStills();
     // The two figures are offered different exercises, so show this figure's list for the body part.
     if (!exercisesFor(currentPart).includes(currentID)) {
       openingView = null;
@@ -605,7 +632,7 @@
     };
   }
   press($$('[data-sex]'), (b) => b.dataset.sex === sex);
-  if (sex === 'm' && avatarPoster) selectSex('m');
+  if (sex === 'm') selectSex('m');
   selectPart(currentPart);
 
   // Start each figure only when it is close to the screen, so the page itself loads fast.

@@ -138,7 +138,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .tile h3 { font-size: 26px; line-height: 1.2; margin-top: 10px; }
 .tile p:not(.eyebrow) { color: var(--fg-2); margin-top: 10px; }
 .stills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 22px; }
-.stills img { width: 100%; border-radius: 20px; background: radial-gradient(circle at 50% 38%, #252D37, #12161B 70%); }
+.still { margin: 0; }
+.still img { display: block; width: 100%; height: auto; border-radius: 20px; background: radial-gradient(circle at 50% 38%, #252D37, #12161B 70%); transition: opacity .25s ease; }
+.still figcaption { margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--fg-2); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stills.is-swapping .still img { opacity: 0; }
+@media (max-width: 520px) { .stills { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
 .week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; margin: 18px 0 0; padding: 0; list-style: none; text-align: center; font-size: 11px; font-weight: 700; color: var(--fg-2); }
 .week li::after { content: ""; display: block; height: 44px; margin-top: 6px; border-radius: 10px; background: rgba(28, 33, 40, .6); }
 .week .is-a::after { background: rgba(255, 86, 52, .25); }
