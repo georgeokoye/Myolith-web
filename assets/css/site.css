@@ -240,6 +240,18 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .legal a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--prime); text-underline-offset: 3px; }
 
 /* Things that slide up as they come into view */
+/* Screens from the app: a row of phones that scrolls sideways and snaps to each one. */
+.shots { display: flex; gap: 28px; margin-top: 44px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  padding: 8px max(24px, calc((100vw - var(--wrap)) / 2 + 24px)) 28px; scroll-padding-inline: max(24px, calc((100vw - var(--wrap)) / 2 + 24px));
+  scrollbar-width: thin; scrollbar-color: var(--surface-hi) transparent; }
+.shots:focus-visible { outline-offset: -4px; }
+.shot { flex: none; width: clamp(216px, 22vw, 262px); margin: 0; scroll-snap-align: start; }
+.shot__phone { padding: 7px; border-radius: 40px; background: #050607; box-shadow: 0 0 0 1px #3A3F47, 0 0 0 4px #17191D, 0 0 0 5px #40454E, 0 28px 56px rgba(0, 0, 0, .55); }
+.shot__phone img { width: 100%; aspect-ratio: 393 / 853; border-radius: 33px; background: var(--surface); }
+.shot figcaption { margin-top: 20px; display: grid; gap: 4px; }
+.shot figcaption strong { font-size: 17px; font-weight: 700; color: var(--fg); }
+.shot figcaption span { font-size: 15px; color: var(--fg-2); }
+
 .rise { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
 .rise.is-in { opacity: 1; transform: none; }
 .no-js .rise { opacity: 1; transform: none; }
