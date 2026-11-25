@@ -12,8 +12,8 @@
 <meta name="author" content="Myolith">
 <meta name="application-name" content="Myolith">
 <meta name="apple-mobile-web-app-title" content="Myolith">
-<!-- When the app is live, add its App Store ID here to show Apple's install banner in Safari:
-<meta name="apple-itunes-app" content="app-id=YOUR-APP-ID"> -->
+<!-- Apple's install banner in Safari on iPhone. It appears once the app is live on the App Store. -->
+<meta name="apple-itunes-app" content="app-id=6838007702">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Myolith">
@@ -40,7 +40,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,800&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
-<link rel="preload" as="image" href="assets/img/ex-bench-press.png">
+<link rel="preload" as="image" href="assets/img/ex-goblet-squat.png">
 <script>document.documentElement.classList.remove('no-js');</script>
 <noscript><style>#pricing{display:block!important}.hold,.hold__label{display:none}</style></noscript>
 
@@ -79,7 +79,7 @@
       "keywords": "workout app, strength training app, gym app, weightlifting app, workout planner, exercise library, 3D exercise demonstrations, muscle guide, progressive overload, workout tracker, beginner workout app, home workouts, no account, no ads, offline, privacy, iPhone",
       "audience": { "@type": "Audience", "audienceType": "Beginners and experienced lifters who want to train with good form and get stronger" },
       "inLanguage": "en",
-      "installUrl": "https://apps.apple.com/app/idYOUR-APP-ID",
+      "installUrl": "https://apps.apple.com/app/id6838007702",
       "featureList": [
         "Every exercise shown on an animated 3D figure with the working muscles lit",
         "Male and female figures you can turn and view from any side",
@@ -161,7 +161,7 @@
     <div class="explorer rise">
       <div class="explorer__stage">
         <div class="stage" id="explorer-stage" data-src="assets/figure.html" data-title="Interactive 3D figure showing the selected exercise. Drag to turn it.">
-          <img class="stage__poster" id="explorer-poster" src="assets/img/ex-bench-press.png" alt="Bench press on the Myolith 3D figure, with the chest muscles lit" width="420" height="420" fetchpriority="high">
+          <img class="stage__poster" id="explorer-poster" src="assets/img/ex-goblet-squat.png" alt="Goblet squat on the Myolith 3D figure seen from behind, with the glutes and quadriceps lit" width="420" height="420" fetchpriority="high">
           <p class="stage__hint" aria-hidden="true">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 4v4h-4M20 12a8 8 0 0 1-14 5.3M4 20v-4h4"/></svg>
             Drag to turn the figure
@@ -169,10 +169,10 @@
         </div>
         <div class="tools">
           <div class="seg" role="group" aria-label="Camera view">
-            <button type="button" data-view="auto" aria-pressed="true">Best</button>
+            <button type="button" data-view="auto" aria-pressed="false">Best</button>
             <button type="button" data-view="0" aria-pressed="false">Front</button>
             <button type="button" data-view="90" aria-pressed="false">Side</button>
-            <button type="button" data-view="180" aria-pressed="false">Back</button>
+            <button type="button" data-view="180" aria-pressed="true">Back</button>
           </div>
           <div class="seg" role="group" aria-label="Figure">
             <button type="button" data-sex="f" aria-pressed="true">Female</button>
@@ -183,23 +183,23 @@
       <div class="explorer__info">
         <p class="eyebrow eyebrow--quiet">Go on. Tap a body part.</p>
         <div class="chips" role="group" aria-label="Body part">
-          <button type="button" class="chip" data-part="chest" aria-pressed="true">Chest</button>
+          <button type="button" class="chip" data-part="chest" aria-pressed="false">Chest</button>
           <button type="button" class="chip" data-part="back" aria-pressed="false">Back</button>
           <button type="button" class="chip" data-part="shoulders" aria-pressed="false">Shoulders</button>
           <button type="button" class="chip" data-part="arms" aria-pressed="false">Arms</button>
           <button type="button" class="chip" data-part="core" aria-pressed="false">Core</button>
-          <button type="button" class="chip" data-part="legs" aria-pressed="false">Legs</button>
+          <button type="button" class="chip" data-part="legs" aria-pressed="true">Legs</button>
         </div>
-        <div class="ex-pick" id="ex-pick" role="group" aria-label="Chest exercises" hidden></div>
-        <h2 class="display" id="explore-title" aria-live="polite">Bench Press</h2>
+        <div class="ex-pick" id="ex-pick" role="group" aria-label="Legs exercises" hidden></div>
+        <h2 class="display" id="explore-title" aria-live="polite">Goblet Squat</h2>
         <dl class="tiers">
-          <div style="--dot: var(--prime)"><dt>Prime movers</dt><dd id="ex-prime">Pectoralis major</dd></div>
-          <div style="--dot: var(--syn)"><dt>Synergists</dt><dd id="ex-syn">Anterior deltoid, triceps</dd></div>
-          <div style="--dot: var(--stab)"><dt>Stabilisers</dt><dd id="ex-stab">Latissimus dorsi, forearms</dd></div>
+          <div style="--dot: var(--prime)"><dt>Prime movers</dt><dd id="ex-prime">Quadriceps, glutes</dd></div>
+          <div style="--dot: var(--syn)"><dt>Synergists</dt><dd id="ex-syn">Adductors</dd></div>
+          <div style="--dot: var(--stab)"><dt>Stabilisers</dt><dd id="ex-stab">Rectus abdominis, spinal erectors, anterior deltoid</dd></div>
         </dl>
         <div class="cue">
           <p class="eyebrow" id="ex-phase">Lower</p>
-          <p id="ex-cue">Lower the bar to the lower chest with the elbows tucked in, not flared.</p>
+          <p id="ex-cue">Sit straight down between the heels.</p>
         </div>
       </div>
     </div>
@@ -369,7 +369,7 @@
         <p class="display price">$29.99<small> a year</small></p>
         <p class="plan__week">About $0.58 a week. Less than a protein bar.</p>
         <p class="plan__text">Your plan, your coach, guided sessions and all your progress. Try all of it free. Nothing to pay today.</p>
-        <a class="cta cta--block" href="https://apps.apple.com/app/idYOUR-APP-ID" rel="noopener">Start my 7 days free</a>
+        <a class="cta cta--block" href="https://apps.apple.com/app/id6838007702" rel="noopener">Start my 7 days free</a>
         <p class="plan__fine">Cancel any time in Settings. Prices in US dollars.</p>
       </article>
       <article class="plan">

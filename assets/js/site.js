@@ -146,6 +146,14 @@
              ['Breathe', 'Take short breaths behind the brace without losing position.'],
              ['Reset', 'End the set when the hips start to drop.']]
     },
+    'goblet-squat': {
+      name: 'Goblet Squat', prime: 'Quadriceps, glutes', syn: 'Adductors', stab: 'Rectus abdominis, spinal erectors, anterior deltoid',
+      alt: 'Goblet squat on the Myolith 3D figure seen from behind, with the glutes and quadriceps lit',
+      cues: [['Lower', 'Sit straight down between the heels.'],
+             ['Bottom', 'Elbows brush the inside of the knees with the chest up.'],
+             ['Drive', 'Drive through the whole foot back to standing.'],
+             ['Top', 'Squeeze the glutes and re-brace.']]
+    },
     'back-squat': {
       name: 'Back Squat', prime: 'Quadriceps, glutes', syn: 'Adductors, hamstrings', stab: 'Spinal erectors, abs, calves',
       alt: 'Back squat on the Myolith 3D figure, with the quadriceps and glutes lit',
@@ -289,14 +297,16 @@
     shoulders: { label: 'Shoulders', ex: ['overhead-press', 'lateral-raise', 'dumbbell-shoulder-press', 'face-pull'] },
     arms: { label: 'Arms', ex: ['hammer-curl', 'barbell-curl', 'triceps-pushdown', 'skull-crusher'] },
     core: { label: 'Core', ex: ['plank', 'hanging-leg-raise', 'dead-bug', 'ab-wheel-rollout'] },
-    legs: { label: 'Legs', ex: ['back-squat', 'romanian-deadlift', 'hip-thrust', 'split-squat'] }
+    legs: { label: 'Legs', ex: ['goblet-squat', 'back-squat', 'romanian-deadlift', 'hip-thrust', 'split-squat'] }
   };
 
   // The female figure is the default. A visitor who picked the male one keeps it.
   let sex = 'f';
   try { if (window.localStorage.getItem('myolith-sex') === 'm') sex = 'm'; } catch (error) { /* private mode */ }
-  let currentID = 'bench-press';
-  let currentPart = 'chest';
+  // The page opens on a squat seen from behind. Picking any exercise after that goes back to its best angle.
+  let currentID = 'goblet-squat';
+  let currentPart = 'legs';
+  let openingView = '180';
 
   const explorerHost = $('#explorer-stage');
   const avatarHost = $('#avatar-stage');
@@ -324,12 +334,13 @@
     buttons.forEach((button) => button.setAttribute('aria-pressed', match(button) ? 'true' : 'false'));
   }
 
-  function selectExercise(id) {
+  function selectExercise(id, view) {
     const exercise = EXERCISES[id];
     if (!exercise) return;
+    const angle = view || 'auto';
     currentID = id;
     press($$('[data-ex]'), (b) => b.dataset.ex === id);
-    press($$('[data-view]'), (b) => b.dataset.view === 'auto');
+    press($$('[data-view]'), (b) => b.dataset.view === angle);
     if (nameEl) nameEl.textContent = exercise.name;
     if (primeEl) primeEl.textContent = exercise.prime;
     if (synEl) synEl.textContent = exercise.syn;
@@ -343,7 +354,7 @@
     if (explorer) {
       explorer.send('spin', false);
       explorer.send('load', id, true);
-      explorer.send('view', 'auto');
+      explorer.send('view', angle);
       explorer.send('play', !reduceMotion);
     }
   }
@@ -363,12 +374,12 @@
         button.dataset.ex = id;
         button.setAttribute('aria-pressed', 'false');
         button.textContent = EXERCISES[id].name;
-        button.addEventListener('click', () => selectExercise(id));
+        button.addEventListener('click', () => { openingView = null; selectExercise(id); });
         pickEl.appendChild(button);
       });
       pickEl.hidden = false;
     }
-    selectExercise(group.ex[0]);
+    selectExercise(group.ex[0], openingView);
   }
 
   function selectSex(value) {
@@ -383,7 +394,7 @@
     if (avatar) avatar.send('sex', sex);
   }
 
-  $$('.chip[data-part]').forEach((chip) => chip.addEventListener('click', () => selectPart(chip.dataset.part)));
+  $$('.chip[data-part]').forEach((chip) => chip.addEventListener('click', () => { openingView = null; selectPart(chip.dataset.part); }));
   $$('[data-sex]').forEach((button) => button.addEventListener('click', () => selectSex(button.dataset.sex)));
   $$('[data-view]').forEach((button) => button.addEventListener('click', () => {
     press($$('[data-view]'), (b) => b === button);
@@ -396,6 +407,9 @@
       explorer.send('sex', sex);
       explorer.send('spin', false);
       explorer.send('load', currentID, true);
+      // Keep whichever angle is selected, including the opening back view.
+      const pressed = $$('[data-view]').find((b) => b.getAttribute('aria-pressed') === 'true');
+      explorer.send('view', pressed ? pressed.dataset.view : 'auto');
       explorer.send('play', !reduceMotion);
     };
   }
