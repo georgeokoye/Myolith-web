@@ -551,6 +551,46 @@
     selectExercise(exercisesFor(part)[0], openingView);
   }
 
+  // The headline cycles through the goals the app offers this figure.
+  const HERO_GOALS = {
+    f: ['Grow your butt.', 'Tone up.', 'Get strong abs.', 'Lose fat.'],
+    m: ['Build muscle.', 'Get a V-taper.', 'Get stronger.', 'Lose fat.'],
+  };
+  const heroGoal = document.getElementById('hero-goal');
+  let heroIndex = 0;
+  let heroTimer = 0;
+  function setHeroGoal(text) {
+    if (!heroGoal || heroGoal.textContent === text) return;
+    if (reduceMotion) { heroGoal.textContent = text; return; }
+    heroGoal.classList.add('is-out');
+    window.setTimeout(() => { heroGoal.textContent = text; heroGoal.classList.remove('is-out'); }, 320);
+  }
+  function fitHeroGoal() {
+    // Reserve the tallest phrase so the page below never jumps.
+    if (!heroGoal) return;
+    const shown = heroGoal.textContent;
+    heroGoal.style.minHeight = '';
+    let tallest = 0;
+    HERO_GOALS[sex].forEach((text) => { heroGoal.textContent = text; tallest = Math.max(tallest, heroGoal.offsetHeight); });
+    heroGoal.textContent = shown;
+    heroGoal.style.minHeight = tallest + 'px';
+  }
+  function startHeroGoals() {
+    if (!heroGoal) return;
+    window.clearInterval(heroTimer);
+    heroIndex = 0;
+    setHeroGoal(HERO_GOALS[sex][0]);
+    fitHeroGoal();
+    if (reduceMotion) return;
+    heroTimer = window.setInterval(() => {
+      if (document.hidden) return;
+      heroIndex = (heroIndex + 1) % HERO_GOALS[sex].length;
+      setHeroGoal(HERO_GOALS[sex][heroIndex]);
+    }, 2600);
+  }
+  window.addEventListener('resize', fitHeroGoal);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeroGoal);
+
   // The library card shows this figure's lifts: dumbbells for her, the barbell for him.
   const LIBRARY_STILLS = {
     f: [['goblet-squat', 'Goblet Squat'], ['dumbbell-rdl', 'Dumbbell RDL'], ['dumbbell-hip-thrust', 'Hip Thrust'], ['dumbbell-shoulder-press', 'Shoulder Press'], ['dumbbell-bent-over-row', 'Dumbbell Row'], ['dumbbell-bench-press', 'Dumbbell Bench']],
@@ -588,6 +628,7 @@
     if (explorer) explorer.send('sex', sex);
     if (avatar) avatar.send('sex', sex);
     showStills();
+    startHeroGoals();
     // The two figures are offered different exercises, so show this figure's list for the body part.
     if (!exercisesFor(currentPart).includes(currentID)) {
       openingView = null;
@@ -633,6 +674,7 @@
   }
   press($$('[data-sex]'), (b) => b.dataset.sex === sex);
   if (sex === 'm') selectSex('m');
+  else startHeroGoals();
   selectPart(currentPart);
 
   // Start each figure only when it is close to the screen, so the page itself loads fast.
