@@ -13,7 +13,7 @@ const OUT = path.join(ROOT, 'dist');
 
 // Everything the live site needs. Anything not listed here (README, LICENSE, build files) is never published.
 const PUBLISH = [
-  'index.html', 'privacy.html', 'terms.html',
+  'index.html', 'privacy.html', 'terms.html', 'support.html',
   'favicon.ico', 'favicon-32.png', 'site.webmanifest',
   'robots.txt', 'llms.txt', 'sitemap.xml',
   'assets'
@@ -35,7 +35,7 @@ async function minifyCSS(code) {
 }
 
 // Clean addresses: each page is published as a folder with an index.html inside, so /privacy works on any host.
-const PAGES = { 'index.html': '/', 'privacy.html': '/privacy', 'terms.html': '/terms' };
+const PAGES = { 'index.html': '/', 'privacy.html': '/privacy', 'terms.html': '/terms', 'support.html': '/support' };
 const outPath = (rel) => (rel in PAGES && rel !== 'index.html') ? path.join(rel.replace(/\.html$/, ''), 'index.html') : rel;
 
 // Page links become clean addresses, and every other local path starts from the site root so it still
