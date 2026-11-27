@@ -41,6 +41,89 @@
     risers.forEach((el) => el.classList.add('is-in'));
   }
 
+  /* ---------- Screens carousel ----------
+     A row of phones that snaps to the middle one. Swipe and trackpad scrolling work on their own;
+     this adds the arrows, the dots, the arrow keys, dragging with a mouse and the "in focus" look. */
+  (function () {
+    const root = $('#screens-carousel');
+    if (!root) return;
+    const track = $('.shots', root);
+    const shots = $$('.shot', track);
+    const dotsHost = $('.carousel__dots', root);
+    const navs = $$('.carousel__nav', root);
+    if (!track || !shots.length) return;
+    let active = -1;
+
+    const centreOf = (shot) => shot.offsetLeft + shot.offsetWidth / 2;
+    function go(index, smooth) {
+      const i = Math.max(0, Math.min(shots.length - 1, index));
+      track.scrollTo({ left: centreOf(shots[i]) - track.clientWidth / 2, behavior: smooth === false || reduceMotion ? 'auto' : 'smooth' });
+    }
+
+    const dots = shots.map((shot, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.tabIndex = -1;
+      dot.addEventListener('click', () => go(i));
+      if (dotsHost) dotsHost.appendChild(dot);
+      return dot;
+    });
+
+    function update() {
+      const middle = track.scrollLeft + track.clientWidth / 2;
+      let nearest = 0;
+      shots.forEach((shot, i) => {
+        if (Math.abs(centreOf(shot) - middle) < Math.abs(centreOf(shots[nearest]) - middle)) nearest = i;
+      });
+      if (nearest === active) return;
+      active = nearest;
+      shots.forEach((shot, i) => shot.classList.toggle('is-active', i === active));
+      dots.forEach((dot, i) => dot.classList.toggle('is-active', i === active));
+      navs.forEach((nav) => { nav.disabled = Number(nav.dataset.dir) < 0 ? active === 0 : active === shots.length - 1; });
+    }
+
+    let queued = false;
+    track.addEventListener('scroll', () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => { queued = false; update(); });
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    navs.forEach((nav) => nav.addEventListener('click', () => go(active + Number(nav.dataset.dir))));
+    shots.forEach((shot, i) => shot.addEventListener('click', () => { if (!moved && i !== active) go(i); }));
+    track.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') { event.preventDefault(); go(active + 1); }
+      if (event.key === 'ArrowLeft') { event.preventDefault(); go(active - 1); }
+    });
+
+    // Drag with a mouse. Touch already scrolls by itself.
+    let dragFrom = null, startLeft = 0, moved = false;
+    track.addEventListener('pointerdown', (event) => {
+      if (event.pointerType !== 'mouse' || event.button !== 0) return;
+      dragFrom = event.clientX;
+      startLeft = track.scrollLeft;
+      moved = false;
+    });
+    window.addEventListener('pointermove', (event) => {
+      if (dragFrom === null) return;
+      const distance = event.clientX - dragFrom;
+      if (!moved && Math.abs(distance) < 6) return;
+      moved = true;
+      track.classList.add('is-dragging');
+      track.scrollLeft = startLeft - distance;
+    });
+    window.addEventListener('pointerup', () => {
+      if (dragFrom === null) return;
+      dragFrom = null;
+      if (!moved) return;
+      track.classList.remove('is-dragging');
+      go(active);
+      setTimeout(() => { moved = false; }, 0);
+    });
+
+    update();
+  })();
+
   /* ---------- The 3D figure ----------
      Each stage holds the app's own WebGL figure in a frame. The page talks to it with messages.
      Until the figure says it is ready, a still picture shows in its place, so the page works
@@ -145,6 +228,84 @@
              ['Hold', 'Keep the hips level with the shoulders. Do not let them sag.'],
              ['Breathe', 'Take short breaths behind the brace without losing position.'],
              ['Reset', 'End the set when the hips start to drop.']]
+    },
+    'dumbbell-bench-press': {
+      name: 'Dumbbell Bench Press', prime: 'Pectoralis major', syn: 'Anterior deltoid, triceps', stab: 'Latissimus dorsi, posterior deltoid, forearms',
+      cues: [['Lower', 'Lower the dumbbells to the sides of the chest with the elbows 45–60° from the torso.'],
+             ['Stretch', 'Pause with the dumbbells level with the chest and the pecs stretched.'],
+             ['Press', 'Press up and slightly in. The dumbbells finish over the shoulders.'],
+             ['Lockout', 'Stop just short of the dumbbells touching to keep tension on the chest.']]
+    },
+    'dumbbell-bent-over-row': {
+      name: 'Dumbbell Bent-Over Row', prime: 'Latissimus dorsi, trapezius', syn: 'Posterior deltoid, biceps', stab: 'Spinal erectors, forearms',
+      cues: [['Row', 'Pull with the elbows and drive them back past the ribs.'],
+             ['Squeeze', 'Pinch the shoulder blades together and hold for a beat.'],
+             ['Return', 'Lower under control until the arms are straight.'],
+             ['Reach', 'Let the shoulders reach forward without rounding the lower back.']]
+    },
+    'one-arm-dumbbell-row': {
+      name: 'One-Arm Dumbbell Row', prime: 'Latissimus dorsi', syn: 'Posterior deltoid, biceps, trapezius', stab: 'Obliques, spinal erectors, forearms',
+      cues: [['Row', 'Pull the dumbbell toward the hip, driving the elbow up and back.'],
+             ['Squeeze', 'Hold with the elbow past the torso and the shoulder blade pulled back.'],
+             ['Lower', 'Lower until the arm is straight and the lat stretches.'],
+             ['Reset', 'Keep the shoulders square to the floor. Finish all reps, then switch sides.']]
+    },
+    'dumbbell-deadlift': {
+      name: 'Dumbbell Deadlift', prime: 'Hamstrings, glutes, spinal erectors', syn: 'Quadriceps, trapezius, latissimus dorsi', stab: 'Forearms, rectus abdominis',
+      cues: [['Pull', 'Push the floor away and keep the weight close.'],
+             ['Lockout', 'Stand tall with the hips through and the shoulders back.'],
+             ['Lower', 'Hips back first, then bend the knees once the weight passes them.'],
+             ['Reset', 'Let it settle and brace again.']]
+    },
+    'arnold-press': {
+      name: 'Arnold Press', prime: 'Anterior deltoid, lateral deltoid', syn: 'Triceps, trapezius', stab: 'Rectus abdominis, spinal erectors',
+      cues: [['Press', 'Press straight up until the arms are locked out.'],
+             ['Lockout', 'Finish with the weight over the shoulders and the biceps by the ears.'],
+             ['Lower', 'Lower under control to the start height.'],
+             ['Reset', 'Re-brace before the next rep.']]
+    },
+    'dumbbell-curl': {
+      name: 'Dumbbell Curl', prime: 'Biceps', syn: 'Forearms', stab: 'Anterior deltoid, trapezius',
+      cues: [['Curl', 'Curl up while turning the palms toward the ceiling.'],
+             ['Squeeze', 'Squeeze hard without letting the elbows drift forward.'],
+             ['Lower', 'Lower for three seconds.'],
+             ['Reset', 'Reach full extension before the next rep.']]
+    },
+    'overhead-triceps-extension': {
+      name: 'Overhead Triceps Extension', prime: 'Triceps', syn: 'None', stab: 'Rectus abdominis, anterior deltoid, latissimus dorsi',
+      cues: [['Lower', 'Bend the elbows and lower the dumbbell behind the head.'],
+             ['Stretch', 'Pause in a deep stretch. The upper arms stay still.'],
+             ['Extend', 'Straighten the arms to bring the dumbbell back overhead.'],
+             ['Top', 'Lock out without leaning back.']]
+    },
+    'dumbbell-kickback': {
+      name: 'Dumbbell Kickback', prime: 'Triceps', syn: 'None', stab: 'Latissimus dorsi, rectus abdominis, forearms',
+      cues: [['Extend', 'Straighten the arms until they are fully locked.'],
+             ['Lockout', 'Squeeze the triceps hard at the end.'],
+             ['Return', 'Let the hands come back until the forearms pass parallel.'],
+             ['Reset', 'Keep the elbows still as you start again.']]
+    },
+    'dumbbell-rdl': {
+      name: 'Dumbbell Romanian Deadlift', prime: 'Hamstrings, glutes', syn: 'Spinal erectors', stab: 'Latissimus dorsi, forearms, rectus abdominis',
+      cues: [['Hinge', 'Push the hips straight back and keep the weight close to the legs.'],
+             ['Stretch', 'Stop when the hamstrings are fully stretched and the back is still flat.'],
+             ['Drive', 'Push the hips forward to stand.'],
+             ['Lockout', 'Finish tall with the glutes squeezed, not leaning back.']]
+    },
+    'dumbbell-hip-thrust': {
+      name: 'Dumbbell Hip Thrust', prime: 'Glutes', syn: 'Hamstrings', stab: 'Rectus abdominis, spinal erectors, quadriceps',
+      cues: [['Drive', 'Push through the heels and lift the hips.'],
+             ['Squeeze', 'Hold the top with the glutes squeezed hard.'],
+             ['Lower', 'Lower slowly under control.'],
+             ['Reset', 'Touch down lightly and go again.']]
+    },
+    'goblet-squat': {
+      name: 'Goblet Squat', prime: 'Quadriceps, glutes', syn: 'Adductors', stab: 'Rectus abdominis, spinal erectors, anterior deltoid',
+      alt: 'Goblet squat on the Myolith 3D figure seen from behind, with the glutes and quadriceps lit',
+      cues: [['Lower', 'Sit straight down between the heels.'],
+             ['Bottom', 'Elbows brush the inside of the knees with the chest up.'],
+             ['Drive', 'Drive through the whole foot back to standing.'],
+             ['Top', 'Squeeze the glutes and re-brace.']]
     },
     'back-squat': {
       name: 'Back Squat', prime: 'Quadriceps, glutes', syn: 'Adductors, hamstrings', stab: 'Spinal erectors, abs, calves',
@@ -289,14 +450,32 @@
     shoulders: { label: 'Shoulders', ex: ['overhead-press', 'lateral-raise', 'dumbbell-shoulder-press', 'face-pull'] },
     arms: { label: 'Arms', ex: ['hammer-curl', 'barbell-curl', 'triceps-pushdown', 'skull-crusher'] },
     core: { label: 'Core', ex: ['plank', 'hanging-leg-raise', 'dead-bug', 'ab-wheel-rollout'] },
-    legs: { label: 'Legs', ex: ['back-squat', 'romanian-deadlift', 'hip-thrust', 'split-squat'] }
+    legs: { label: 'Legs', ex: ['goblet-squat', 'back-squat', 'romanian-deadlift', 'hip-thrust', 'split-squat'] }
   };
+
+  // The female figure never holds a barbell: each barbell lift is swapped for its dumbbell version.
+  const PARTS_FEMALE = {
+    chest: ['dumbbell-bench-press', 'incline-dumbbell-press', 'dumbbell-fly', 'push-up'],
+    back: ['dumbbell-bent-over-row', 'one-arm-dumbbell-row', 'lat-pulldown', 'dumbbell-deadlift'],
+    shoulders: ['dumbbell-shoulder-press', 'lateral-raise', 'arnold-press', 'face-pull'],
+    arms: ['hammer-curl', 'dumbbell-curl', 'overhead-triceps-extension', 'dumbbell-kickback'],
+    legs: ['goblet-squat', 'dumbbell-rdl', 'dumbbell-hip-thrust', 'split-squat']
+  };
+
+  // The exercises offered for a body part, for the figure that is showing.
+  function exercisesFor(part) {
+    const group = PARTS[part];
+    if (!group) return [];
+    return (sex === 'f' && PARTS_FEMALE[part]) || group.ex;
+  }
 
   // The female figure is the default. A visitor who picked the male one keeps it.
   let sex = 'f';
   try { if (window.localStorage.getItem('myolith-sex') === 'm') sex = 'm'; } catch (error) { /* private mode */ }
-  let currentID = 'bench-press';
-  let currentPart = 'chest';
+  // The page opens on a squat seen from behind. Picking any exercise after that goes back to its best angle.
+  let currentID = 'goblet-squat';
+  let currentPart = 'legs';
+  let openingView = '180';
 
   const explorerHost = $('#explorer-stage');
   const avatarHost = $('#avatar-stage');
@@ -324,12 +503,13 @@
     buttons.forEach((button) => button.setAttribute('aria-pressed', match(button) ? 'true' : 'false'));
   }
 
-  function selectExercise(id) {
+  function selectExercise(id, view) {
     const exercise = EXERCISES[id];
     if (!exercise) return;
+    const angle = view || 'auto';
     currentID = id;
     press($$('[data-ex]'), (b) => b.dataset.ex === id);
-    press($$('[data-view]'), (b) => b.dataset.view === 'auto');
+    press($$('[data-view]'), (b) => b.dataset.view === angle);
     if (nameEl) nameEl.textContent = exercise.name;
     if (primeEl) primeEl.textContent = exercise.prime;
     if (synEl) synEl.textContent = exercise.syn;
@@ -343,7 +523,7 @@
     if (explorer) {
       explorer.send('spin', false);
       explorer.send('load', id, true);
-      explorer.send('view', 'auto');
+      explorer.send('view', angle);
       explorer.send('play', !reduceMotion);
     }
   }
@@ -356,19 +536,85 @@
     if (pickEl) {
       pickEl.textContent = '';
       pickEl.setAttribute('aria-label', group.label + ' exercises');
-      group.ex.forEach((id) => {
+      exercisesFor(part).forEach((id) => {
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'pick';
         button.dataset.ex = id;
         button.setAttribute('aria-pressed', 'false');
         button.textContent = EXERCISES[id].name;
-        button.addEventListener('click', () => selectExercise(id));
+        button.addEventListener('click', () => { openingView = null; selectExercise(id); });
         pickEl.appendChild(button);
       });
       pickEl.hidden = false;
     }
-    selectExercise(group.ex[0]);
+    selectExercise(exercisesFor(part)[0], openingView);
+  }
+
+  // The headline cycles through the goals the app offers this figure.
+  const HERO_GOALS = {
+    f: ['Grow your butt.', 'Tone up.', 'Get strong abs.', 'Lose fat.'],
+    m: ['Build muscle.', 'Get a V-taper.', 'Get stronger.', 'Lose fat.'],
+  };
+  const heroGoal = document.getElementById('hero-goal');
+  let heroIndex = 0;
+  let heroTimer = 0;
+  function setHeroGoal(text) {
+    if (!heroGoal || heroGoal.textContent === text) return;
+    if (reduceMotion) { heroGoal.textContent = text; return; }
+    heroGoal.classList.add('is-out');
+    window.setTimeout(() => { heroGoal.textContent = text; heroGoal.classList.remove('is-out'); }, 320);
+  }
+  function fitHeroGoal() {
+    // Reserve the tallest phrase so the page below never jumps.
+    if (!heroGoal) return;
+    const shown = heroGoal.textContent;
+    heroGoal.style.minHeight = '';
+    let tallest = 0;
+    HERO_GOALS[sex].forEach((text) => { heroGoal.textContent = text; tallest = Math.max(tallest, heroGoal.offsetHeight); });
+    heroGoal.textContent = shown;
+    heroGoal.style.minHeight = tallest + 'px';
+  }
+  function startHeroGoals() {
+    if (!heroGoal) return;
+    window.clearInterval(heroTimer);
+    heroIndex = 0;
+    setHeroGoal(HERO_GOALS[sex][0]);
+    fitHeroGoal();
+    if (reduceMotion) return;
+    heroTimer = window.setInterval(() => {
+      if (document.hidden) return;
+      heroIndex = (heroIndex + 1) % HERO_GOALS[sex].length;
+      setHeroGoal(HERO_GOALS[sex][heroIndex]);
+    }, 2600);
+  }
+  window.addEventListener('resize', fitHeroGoal);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeroGoal);
+
+  // The library card shows this figure's lifts: dumbbells for her, the barbell for him.
+  const LIBRARY_STILLS = {
+    f: [['goblet-squat', 'Goblet Squat'], ['dumbbell-rdl', 'Dumbbell RDL'], ['dumbbell-hip-thrust', 'Hip Thrust'], ['dumbbell-shoulder-press', 'Shoulder Press'], ['dumbbell-bent-over-row', 'Dumbbell Row'], ['dumbbell-bench-press', 'Dumbbell Bench']],
+    m: [['back-squat', 'Back Squat'], ['deadlift', 'Deadlift'], ['bench-press', 'Bench Press'], ['overhead-press', 'Overhead Press'], ['bent-over-row', 'Barbell Row'], ['barbell-curl', 'Barbell Curl']],
+  };
+  const stillsEl = document.getElementById('library-stills');
+  let stillsSex = 'f';
+  function showStills() {
+    if (!stillsEl || stillsSex === sex) return;
+    stillsSex = sex;
+    const apply = () => {
+      $$('.still', stillsEl).forEach((figure, index) => {
+        const item = LIBRARY_STILLS[sex][index];
+        if (!item) return;
+        const img = figure.querySelector('img');
+        img.src = 'assets/img/lib/' + sex + '-' + item[0] + '.webp';
+        img.alt = item[1] + ' on the 3D figure, with the working muscles lit';
+        figure.querySelector('figcaption').textContent = item[1];
+      });
+      stillsEl.classList.remove('is-swapping');
+    };
+    if (reduceMotion) { apply(); return; }
+    stillsEl.classList.add('is-swapping');
+    window.setTimeout(apply, 220);
   }
 
   function selectSex(value) {
@@ -381,9 +627,16 @@
     }
     if (explorer) explorer.send('sex', sex);
     if (avatar) avatar.send('sex', sex);
+    showStills();
+    startHeroGoals();
+    // The two figures are offered different exercises, so show this figure's list for the body part.
+    if (!exercisesFor(currentPart).includes(currentID)) {
+      openingView = null;
+      selectPart(currentPart);
+    }
   }
 
-  $$('.chip[data-part]').forEach((chip) => chip.addEventListener('click', () => selectPart(chip.dataset.part)));
+  $$('.chip[data-part]').forEach((chip) => chip.addEventListener('click', () => { openingView = null; selectPart(chip.dataset.part); }));
   $$('[data-sex]').forEach((button) => button.addEventListener('click', () => selectSex(button.dataset.sex)));
   $$('[data-view]').forEach((button) => button.addEventListener('click', () => {
     press($$('[data-view]'), (b) => b === button);
@@ -396,6 +649,9 @@
       explorer.send('sex', sex);
       explorer.send('spin', false);
       explorer.send('load', currentID, true);
+      // Keep whichever angle is selected, including the opening back view.
+      const pressed = $$('[data-view]').find((b) => b.getAttribute('aria-pressed') === 'true');
+      explorer.send('view', pressed ? pressed.dataset.view : 'auto');
       explorer.send('play', !reduceMotion);
     };
   }
@@ -417,7 +673,8 @@
     };
   }
   press($$('[data-sex]'), (b) => b.dataset.sex === sex);
-  if (sex === 'm' && avatarPoster) selectSex('m');
+  if (sex === 'm') selectSex('m');
+  else startHeroGoals();
   selectPart(currentPart);
 
   // Start each figure only when it is close to the screen, so the page itself loads fast.

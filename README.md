@@ -13,7 +13,7 @@ Publish the `dist/` folder, never this folder. The build minifies the HTML, CSS 
 
 Run the build again after every change. `dist/` is not committed to Git.
 
-The build also gives the pages clean addresses: `/privacy` and `/terms` instead of `privacy.html` and `terms.html`. Each is published as a folder with an `index.html` inside, so this works on any host, and every link in the built site uses the clean form. Keep editing `privacy.html` and `terms.html` as normal here.
+The build also gives the pages clean addresses: `/privacy`, `/terms` and `/support` instead of `privacy.html`, `terms.html` and `support.html`. Each is published as a folder with an `index.html` inside, so this works on any host, and every link in the built site uses the clean form. Keep editing `privacy.html` and `terms.html` as normal here.
 
 - **Upload by hand:** upload the contents of `dist/` to your host.
 - **Vercel (recommended):** import the GitHub repo at vercel.com/new. `vercel.json` already sets the build command, the `dist` folder, clean addresses and redirects from the old `.html` addresses, so there is nothing to configure. Then open the project, go to the Analytics tab and click Enable to start counting visits. The analytics script is already in every page; it does nothing until Analytics is enabled, and it only works on Vercel (on your own computer it shows a harmless 404 in the browser console).
@@ -24,14 +24,9 @@ Keep the GitHub repository private. If it is public, anyone can read the unminif
 
 What this does and does not do: browsers must download a site's code to show it, so no website can be made impossible to copy. Minifying makes it slow and tedious to reuse, and the notices make your rights clear. `robots.txt` lets search engines crawl everything and lets AI tools read the pages, so they can recommend Myolith, but keeps AI crawlers out of `/assets/`, where the code and 3D engine live. `llms.txt` tells AI tools not to copy or recreate the site or its technology. Well-behaved tools respect these. Others may not.
 
-## Still to replace
+## App Store link
 
-The site address is set to `https://myolith.app` everywhere. These placeholders are left, to fill in once the app has an App Store page.
-
-| Placeholder | Replace with | Where |
-|---|---|---|
-| `https://apps.apple.com/app/idYOUR-APP-ID` | Your App Store link | `index.html` (the pricing button and the structured data) |
-| `YOUR-APP-ID` in the commented `apple-itunes-app` line | Your App Store ID, then uncomment the line | `index.html` |
+The app's App Store ID is `6838007702`. It is set in three places in `index.html`: the pricing button, the structured data and the `apple-itunes-app` line that shows Apple's install banner in Safari. The link opens once the app is live.
 
 ### Add Apple's App Store badge
 
@@ -48,6 +43,7 @@ Until that file is there, each spot shows a simple "Available only on the App St
 |---|---|
 | `index.html` | The landing page |
 | `privacy.html`, `terms.html` | Legal pages. Drafts: have them checked before launch |
+| `support.html` | Help page and contact. Its address, `https://myolith.app/support`, is the Support URL in App Store Connect |
 | `assets/css/site.css` | All styling. Colours and shapes match the app's theme |
 | `assets/js/site.js` | Sticky header, the 3D figures, hold to commit, pricing reveal |
 | `assets/figure.html` | The app's own 3D engine (`Resources/stage.html`) with a small bridge added at the end so the page can drive it |
